@@ -1,0 +1,33 @@
+type User @table {
+  username: String!
+  createdAt: Timestamp!
+  displayName: String
+  profilePictureUrl: String
+  bio: String
+}
+
+type Discovery @table {
+  user: User!
+  title: String!
+  discoveryType: String!
+  coordinates: String!
+  createdAt: Timestamp!
+  description: String
+  galaxy: String
+  system: String
+  planetName: String
+  imageUrls: [String]
+}
+
+type Comment @table {
+  user: User!
+  discovery: Discovery!
+  content: String!
+  createdAt: Timestamp!
+}
+
+type Follow @table(key: ["follower", "following"]) {
+  follower: User!
+  following: User!
+  createdAt: Timestamp!
+}
