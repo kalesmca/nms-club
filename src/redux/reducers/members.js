@@ -1,4 +1,4 @@
-import { UPDATE_MEMBER, UPDATE_AUTH_STATUS } from '../../config/actions';
+import { UPDATE_MEMBER_LIST, UPDATE_AUTH_STATUS } from '../../config/actions';
 import { AUTH_STATUS } from '../../config/constants';
 
 const initState = {
@@ -9,7 +9,7 @@ const initState = {
 
 const members = (state = initState, action) => {
   switch (action.type) {
-    case UPDATE_MEMBER: {
+    case UPDATE_MEMBER_LIST: {
       return { ...state, memberList: action.data, regMemberList: action.regMemberList };
     }
     case UPDATE_AUTH_STATUS: {

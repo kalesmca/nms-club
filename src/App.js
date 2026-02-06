@@ -8,6 +8,9 @@ import LoginBodyComponent from "./containers/layout/loginLayout/loginBody";
 import NotFountComponent from "./containers/notFound/notFound";
 import AboutUsComponent from "./containers/aboutUs/aboutUsComponent";
 import HomeComponent from "./containers/Home/homeComponent";
+import RegistrationComponent from "./containers/registration/registrationComponent";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 function App() {
   // const [list, setList] = React.useState([]);
@@ -28,26 +31,31 @@ function App() {
   // },[])
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route element={<LoginLayoutComponent />}>
-            <Route path="/" element={<LoginBodyComponent />} />
-            <Route path="/login" element={<LoginBodyComponent />} />
-            <Route path="/about_us" element={<AboutUsComponent />} />
-            <Route path="/home" element={<HomeComponent />} />
-            
-            <Route path="*" element={<NotFountComponent />} />
-          </Route>
+      <Provider store={store}>
+        <div>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<LoginLayoutComponent />}>
+                <Route path="/" element={<AboutUsComponent />} />
+                <Route path="/login" element={<LoginBodyComponent />} />
+                <Route path="/about_us" element={<AboutUsComponent />} />
+                <Route path="/home" element={<HomeComponent />} />
+                <Route path="/registration" element={<RegistrationComponent />} />
 
-          {/* <Route path="/authed" element={<LayoutContainer />}>
+                <Route path="*" element={<NotFountComponent />} />
+              </Route>
+
+              {/* <Route path="/authed" element={<LayoutContainer />}>
                 <Route path="player-list" element={<PlayerListComponent />} />
                 <Route path="registration" element={<PlayerRegistration />} />
                 <Route path="dashboard" element={<PlayerDashboard />} />
                 <Route path="source" element={<SourceDataComponent />} />
                 <Route path="*" element={<LayoutContainer />} />
               </Route> */}
-        </Routes>
-      </BrowserRouter>
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </Provider>
     </div>
   );
 }

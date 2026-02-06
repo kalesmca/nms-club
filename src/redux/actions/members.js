@@ -1,17 +1,17 @@
-import { UPDATE_PLAYERS, UPDATE_AUTH_STATUS } from '../../config/actions';
+import { UPDATE_MEMBER_LIST, UPDATE_AUTH_STATUS } from '../../config/actions';
 import { db } from '../../firebase-config';
 import { DB } from '../../config/constants';
 
 import { collection, getDocs, addDoc } from 'firebase/firestore';
-import { batch } from 'react-redux';
+// import { batch } from 'react-redux';
 
-import { async } from '@firebase/util';
+// import { async } from '@firebase/util';
 
-const playersCollectionRef = collection(db, DB.players);
+const collectionRef = collection(db, DB);
 
-export const getPlayerList = () => async (dispatch, getState) => {
+export const getNewMemberList = () => async (dispatch, getState) => {
   try {
-    const data = await getDocs(playersCollectionRef);
+    const data = await getDocs(collectionRef);
     let dataList = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     console.log('data list:', dataList);
 
@@ -19,10 +19,10 @@ export const getPlayerList = () => async (dispatch, getState) => {
       return new Date(a.chestNumber) - new Date(b.chestNumber);
     });
 
-    const localAuth = JSON.parse(localStorage.getItem('auth'));
-    const regPlayerList = dataList.filter((data) => data.registerMobile === localAuth.mobile);
+    const localAuth = JSON.parse(sessionStorage.getItem('auth'));
+    const regMemberList = dataList.filter((data) => data.registerMobile === localAuth.mobile);
 
-    dispatch(updatePlayerList(dataList, regPlayerList));
+    dispatch(updateMemberList(regMemberList, regMemberList));
   } catch (error) {
     console.log('getEventList : error:', error);
   }
@@ -30,20 +30,21 @@ export const getPlayerList = () => async (dispatch, getState) => {
 
 export const addPlayer = (obj) => async (dispatch, getState) => {
   try {
-    await addDoc(playersCollectionRef, obj);
-    dispatch(getPlayerList());
+    await addDoc(collectionRef, obj);
+    dispatch(getNewMemberList());
   } catch (error) {
     console.log('error:', error);
   }
 };
 
-export const updatePlayerList = (data, regPlayerList) => {
+export const updateMemberList = (data, regPlayerList) => {
   return {
-    type: UPDATE_PLAYERS,
+    type: UPDATE_MEMBER_LIST,
     data: data,
     regPlayerList: regPlayerList,
   };
 };
+
 
 export const setAuthStatus = (status) => {
   return {
