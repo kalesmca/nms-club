@@ -28,7 +28,8 @@ export const getNewMemberList = () => async (dispatch, getState) => {
   }
 };
 
-export const addPlayer = (obj) => async (dispatch, getState) => {
+export const addMember = (obj) => async (dispatch, getState) => {
+  console.log("registraton member =", obj)
   try {
     await addDoc(collectionRef, obj);
     dispatch(getNewMemberList());

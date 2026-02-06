@@ -9,6 +9,7 @@ import NotFountComponent from "./containers/notFound/notFound";
 import AboutUsComponent from "./containers/aboutUs/aboutUsComponent";
 import HomeComponent from "./containers/Home/homeComponent";
 import RegistrationComponent from "./containers/registration/registrationComponent";
+import UploadImage from "./containers/fileTest/uploadTestComponent";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
@@ -39,7 +40,7 @@ function App() {
                 <Route path="/" element={<AboutUsComponent />} />
                 <Route path="/login" element={<LoginBodyComponent />} />
                 <Route path="/about_us" element={<AboutUsComponent />} />
-                <Route path="/home" element={<HomeComponent />} />
+                <Route path="/home" element={<UploadImage />} />
                 <Route path="/registration" element={<RegistrationComponent />} />
 
                 <Route path="*" element={<NotFountComponent />} />
